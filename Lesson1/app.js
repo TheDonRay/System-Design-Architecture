@@ -52,6 +52,21 @@ app.get('/api/v1/users/:id', (req, res) => {
 }); 
 
 // we can create a req.query situation here as well 
+app.get('/api/v1/search', (req, res) => { 
+    const searchquery = req.query.name; 
+    if (!searchquery) { 
+        return res.send.json({ 
+            Error: "No search available for given query"
+        });  
+    }  
+    const findData = userData.find(user => user.name === searchquery); 
+    if (!findData) { throw new Error('No user found with that name')}; 
+    return res.json({ 
+        searched: searchquery, 
+        found: findData
+    });
+}); 
+
 
 
 
